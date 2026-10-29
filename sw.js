@@ -1,4 +1,4 @@
-const CACHE='aly-finance-935ec0c0f475';
+const CACHE='aly-finance-b2cb1c6dbdfa';
 const ROOT=new URL('./',self.location).pathname;
 self.addEventListener('message',event=>{if(event.data?.type==='SKIP_WAITING')self.skipWaiting();});
 self.addEventListener('install',event=>{event.waitUntil((async()=>{const cache=await caches.open(CACHE);const response=await fetch(ROOT);if(!response.ok)throw Error('تعذر تجهيز ملفات التطبيق');const html=await response.text();const assets=[...html.matchAll(/(?:src|href)="([^"#]+)"/g)].map(m=>m[1]).filter(p=>p.startsWith(ROOT+'assets/'));await cache.put(ROOT,new Response(html,{headers:{'Content-Type':'text/html; charset=utf-8'}}));await cache.addAll([...new Set([...assets,ROOT+'manifest.webmanifest',ROOT+'assets/portrait.png',ROOT+'assets/ALYScribble-Regular.woff2',ROOT+'assets/icon-192.png',ROOT+'assets/icon-512.png'])]);})());});
